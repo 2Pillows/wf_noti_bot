@@ -1,9 +1,6 @@
 require("dotenv").config();
 const { EmbedBuilder } = require("discord.js");
 
-const pillows_id = "800391411560087562";
-const api_url = "https://api.warframestat.us/pc/";
-
 async function deleteMessages(channel) {
   const messages = await channel.messages.fetch({ limit: 100 });
   channel.bulkDelete(messages);
@@ -13,7 +10,7 @@ module.exports = async function cetusEmbed(channel) {
   console.log("\n--------------------------");
   console.log("cetusEmbed called");
 
-  const response = await fetch(api_url);
+  const response = await fetch(process.env.API_URL);
   const data = await response.json();
   const cetusData = data.cetusCycle;
 
@@ -55,7 +52,7 @@ module.exports = async function cetusEmbed(channel) {
     setTimeout(async () => {
       await deleteMessages(channel);
 
-      channel.send(`<@!${pillows_id}> Night <t:${expireUnix}:R>`);
+      channel.send(`<@!${process.env.USER_ID}> Night <t:${expireUnix}:R>`);
 
       channel.send({ embeds: [embed] });
     }, msToNoti);

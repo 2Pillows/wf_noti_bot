@@ -1,16 +1,13 @@
 require("dotenv").config();
 const { EmbedBuilder } = require("discord.js");
 
-const pillows_id = "800391411560087562";
-const api_url = "https://api.warframestat.us/pc/";
-
 const intervalTime = 5;
 
 async function fissureEmbed(channel, masterList) {
   console.log("\n--------------------------");
   console.log("fissureEmbed called");
 
-  const response = await fetch(api_url);
+  const response = await fetch(process.env.API_URL);
   const data = await response.json();
   const fissureData = data.fissures;
 
@@ -85,7 +82,7 @@ async function fissureEmbed(channel, masterList) {
   // console.log("\n---------------------\n");
 
   // newFissures.forEach((a) => {
-  //   channel.send(`<@!${pillows_id}> ${a.tier} Surv <t:${a.expiry}:R>`);
+  //   channel.send(`<@!${process.env.USER_ID}> ${a.tier} Surv <t:${a.expiry}:R>`);
   //   spFissures.forEach((b) => {
   //     if (a.id === b.id) {
   //       a.msgSent = true;
@@ -104,7 +101,7 @@ async function fissureEmbed(channel, masterList) {
       }
       if (!value.msgSent) {
         channel.send(
-          `<@!${pillows_id}> ${value.tier} Surv <t:${value.expiry}:R>`
+          `<@!${process.env.USER_ID}> ${value.tier} Surv <t:${value.expiry}:R>`
         );
         value.msgSent = true;
       }
